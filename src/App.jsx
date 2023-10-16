@@ -20,6 +20,39 @@ function App() {
       });
   }, []);
 
+  const handleEditTitleChange = (movieId, newValue) => {
+    const updatedMovies = movies.map((movie) => {
+      if (movie.id === movieId) {
+        return { ...movie, title: newValue };
+      }
+      return movie;
+    });
+
+    setMovies(updatedMovies);
+  };
+
+  const handleEditDirectorChange = (movieId, newValue) => {
+    const updatedMovies = movies.map((movie) => {
+      if (movie.id === movieId) {
+        return { ...movie, director: newValue };
+      }
+      return movie;
+    });
+
+    setMovies(updatedMovies);
+  };
+
+  const handleEditYearChange = (movieId, newValue) => {
+    const updatedMovies = movies.map((movie) => {
+      if (movie.id === movieId) {
+        return { ...movie, year: newValue };
+      }
+      return movie;
+    });
+
+    setMovies(updatedMovies);
+  };
+
   const handleSearch = () => {
     axios
       .get(`http://localhost:3001/search?title=${searchQuery}`)
@@ -68,7 +101,7 @@ function App() {
       .put(`http://localhost:3001/movies/${movieId}`, updatedMovie)
       .then((response) => {
         setMovies(movies.map((movie) => (movie.id === movieId ? response.data : movie)));
-        setEditMovieId(null); // Clear the editing state
+        setEditMovieId(null);
       })
       .catch((error) => {
         console.error("Error editing a movie:", error);
